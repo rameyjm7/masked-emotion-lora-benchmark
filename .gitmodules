@@ -1,0 +1,6 @@
+[submodule "LLaMA-Factory"]
+	path = LLaMA-Factory
+	url = https://github.com/hiyouga/LLaMA-Factory.git
+[submodule "express-emotion-recognition"]
+	path = express-emotion-recognition
+	url = https://github.com/bangzhaojo/express-emotion-recognition.git

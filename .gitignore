@@ -1,0 +1,24 @@
+# Generated outputs and archives
+outputs/
+archive/
+
+# Secrets / local env
+env.txt
+configs/env.pkl
+
+# Jupyter noise
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local virtual envs
+.venv/
+venv/
+ml-env/
+
+# OS/editor
+.DS_Store
+.vscode/

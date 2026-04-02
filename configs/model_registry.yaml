@@ -1,0 +1,80 @@
+models:
+  - id: gemma2_2b_it
+    family: gemma2
+    model_name_or_path: /home/rameyjm7/workspace/llamafactory-gemma-lora/models/google__gemma-2-2b-it
+    size_b: 2
+    pipeline: llamafactory_lora_causal
+    template: gemma2
+    enabled: true
+
+  - id: gemma2_9b_it
+    family: gemma2
+    model_name_or_path: google/gemma-2-9b-it
+    size_b: 9
+    pipeline: llamafactory_lora_causal
+    template: gemma2
+    enabled: true
+
+  - id: llama31_8b_instruct
+    family: llama3.1
+    model_name_or_path: meta-llama/Llama-3.1-8B-Instruct
+    size_b: 8
+    pipeline: llamafactory_lora_causal
+    template: llama3
+    enabled: true
+
+  - id: flan_t5_large
+    family: flan-t5
+    model_name_or_path: google/flan-t5-large
+    size_b: 0.78
+    pipeline: hf_peft_seq2seq
+    template: null
+    enabled: true
+
+  - id: flan_t5_xl
+    family: flan-t5
+    model_name_or_path: google/flan-t5-xl
+    size_b: 3
+    pipeline: hf_peft_seq2seq
+    template: null
+    enabled: true
+
+  - id: flan_t5_xxl
+    family: flan-t5
+    model_name_or_path: google/flan-t5-xxl
+    size_b: 11
+    pipeline: hf_peft_seq2seq
+    template: null
+    enabled: true
+
+  - id: roberta_base
+    family: roberta
+    model_name_or_path: FacebookAI/roberta-base
+    size_b: 0.125
+    pipeline: hf_peft_mlm
+    template: null
+    enabled: true
+
+  - id: mental_roberta_base
+    family: roberta
+    model_name_or_path: mental/mental-roberta-base
+    size_b: 0.125
+    pipeline: hf_peft_mlm
+    template: null
+    enabled: true
+
+  - id: longformer_base
+    family: longformer
+    model_name_or_path: allenai/longformer-base-4096
+    size_b: 0.149
+    pipeline: hf_peft_mlm
+    template: null
+    enabled: true
+
+  - id: deberta_v3_large
+    family: deberta
+    model_name_or_path: microsoft/deberta-v3-large
+    size_b: 0.435
+    pipeline: hf_peft_mlm
+    template: null
+    enabled: true
