@@ -3,4 +3,4 @@
 	url = https://github.com/hiyouga/LLaMA-Factory.git
 [submodule "express-emotion-recognition"]
 	path = express-emotion-recognition
-	url = https://github.com/bangzhaojo/express-emotion-recognition.git
+	url = https://github.com/rameyjm7/express-emotion-recognition.git
