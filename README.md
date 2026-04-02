@@ -31,3 +31,12 @@ This workspace keeps upstream codebases intact while placing your team workflow 
 
 ## Note
 - Active notebooks are run from `notebooks/`.
+
+## Some Preliminary Results
+
+9% improvement on top model from baseline results
+
+<img width="1384" height="584" alt="image" src="https://github.com/user-attachments/assets/32422ec5-3fca-4184-b19e-29a33f3b630a" />
+
+<img width="1349" height="745" alt="image" src="https://github.com/user-attachments/assets/947ee392-3d9b-4770-b540-9f622caa616b" />
+
