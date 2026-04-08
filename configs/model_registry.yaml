@@ -55,6 +55,22 @@ models:
     template: null
     enabled: true
 
+  - id: roberta_large
+    family: roberta
+    model_name_or_path: FacebookAI/roberta-large
+    size_b: 0.355
+    pipeline: hf_peft_mlm
+    template: null
+    enabled: true
+
+  - id: xlm_roberta_large
+    family: roberta
+    model_name_or_path: FacebookAI/xlm-roberta-large
+    size_b: 0.56
+    pipeline: hf_peft_mlm
+    template: null
+    enabled: true
+
   - id: mental_roberta_base
     family: roberta
     model_name_or_path: mental/mental-roberta-base
