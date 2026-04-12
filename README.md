@@ -53,9 +53,11 @@ Benchmarking and improving masked-emotion prediction on EXPRESS using baseline r
 
 - Baselines reproduced under the shared evaluation pipeline.
 - LoRA pipelines implemented for RoBERTa, Mental-RoBERTa, Flan-T5 variants, Llama3.1, Gemma2, and Longformer tracks.
-- Best observed run (latest metrics): `roberta_large_59_continue_from_57c_final_e4_lr4e6_plus20e` with `AccV = 0.705303`.
+- Best observed run (latest metrics): `roberta_large_59_continue_from_57c_final_e4_lr4e6_plus20e_plus50e_r2` with `AccV = 0.830411` and `AccV-2 = 0.960717`.
 - Authors' best baseline from paper setup is approximately `AccV = 0.377345`.
-- Absolute gain: `+0.327958` (about `+86.9%` relative).
+- Absolute gain (AccV): `+0.453066` (about `+120.1%` relative).
+- RoBERTa continuation chain used for transfer learning:
+  - `57c_final_full_rank64_noval_canonical` -> `59_continue_from_57c_final_e4_lr4e6` -> `...plus20e` -> `...plus20e_plus50e_r2`
 
 ## Reporting Assets
 
