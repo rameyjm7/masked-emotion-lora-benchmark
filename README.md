@@ -1,6 +1,37 @@
 # Masked Emotion LoRA Benchmark
 
-Benchmarking and improving masked-emotion prediction on EXPRESS using baseline reproduction plus LoRA fine-tuning across model families.
+Reproducible benchmark for masked-emotion prediction on the EXPRESS dataset, combining baseline reproduction with LoRA fine-tuning and continuation training across multiple model families.
+
+This project focuses on understanding how task-specific adaptation impacts fine-grained emotion prediction, rather than relying on model scale alone.
+
+---
+
+## Key Results
+
+- Best model (RoBERTa-large + continuation training):
+  - **AccV = 0.8304**
+- Paper baseline (Shu et al., 2025):
+  - **AccV ≈ 0.377**
+- Improvement:
+  - **+0.45 absolute**
+  - **>120% relative gain**
+
+Main takeaway:
+- Alignment + training strategy matter more than model size for this task.
+
+---
+
+## What This Repo Does
+
+- Reproduces baseline results from *Fluent but Unfeeling*
+- Applies LoRA fine-tuning across:
+  - Encoder models (RoBERTa, XLM-RoBERTa, Longformer)
+  - Generative models (Flan-T5, LLaMA, Gemma)
+- Introduces continuation training for large gains
+- Tracks all experiments with centralized metrics and outputs
+- Produces final comparison tables and figures used in the report
+
+---
 
 ## Repository Layout
 
@@ -9,65 +40,78 @@ Benchmarking and improving masked-emotion prediction on EXPRESS using baseline r
 - `express-emotion-recognition/`
 
 ### Project Assets
-- `notebooks/`:
-  - `20_baseline_reproduction_runner.ipynb`
-  - `30_sanity_check_roberta_baseline.ipynb`
-  - `50_roberta_mlm_lora_template.ipynb`
-  - `51_mental_roberta_mlm_lora.ipynb`
-  - `52_flan_seq2seq_lora.ipynb`
-  - `53_llama31_8b_lora_pipeline.ipynb`
-  - `54_gemma2_2b_lora_pipeline.ipynb`
-  - `55_longformer_mlm_lora.ipynb`
-  - `56_gpt_causal_lora.ipynb`
-  - `57_roberta_mlm_lora_improvement.ipynb`
-  - `57b_roberta_large_mlm_lora_improvement.ipynb`
-  - `57c_roberta_large_mlm_lora_hparam_push.ipynb`
-  - `57d_xlm_roberta_large_mlm_lora_hparam_push.ipynb`
-  - `58_roberta_mlm_lora_ppo.ipynb`
-  - `59_roberta_large_continue_from_57c.ipynb`
-  - `60_multi_model_comparison.ipynb`
+
+- `notebooks/`
+  - End-to-end experiment pipeline (baseline → LoRA → optimization → comparison)
 - `configs/model_registry.yaml`
-- `outputs/`:
-  - `metrics/` (central CSV metrics and per-model run summaries)
-  - `figures/` (comparison and overlay plots)
-  - `lora_runs/` (adapter checkpoints and trainer states)
-  - `lora_data/` (prepared training/eval data)
-- `docs/proposal/`:
-  - proposal and report docs
-  - `SMA_Project_Progress_Report.docx`
-  - `notebook60_tables.xlsx`
+  - Central model configuration and tracking
+- `outputs/`
+  - `metrics/` – aggregated results and run summaries
+  - `figures/` – plots used in final analysis
+  - `lora_runs/` – adapter checkpoints and training states
+  - `lora_data/` – processed datasets
+- `docs/proposal/`
+  - Project report and supporting tables
+
+---
 
 ## Recommended Run Order
 
-1. Run baseline:
-   - `20_baseline_reproduction_runner.ipynb`
-   - `30_sanity_check_roberta_baseline.ipynb`
-2. Run family pipelines:
-   - `50` to `56`
-3. Run focused RoBERTa optimization:
-   - `57`, `57b`, `57c`, `57d`, `59`
-4. Run final comparison/report notebook:
-   - `60_multi_model_comparison.ipynb`
+### 1. Baseline Reproduction
+- `20_baseline_reproduction_runner.ipynb`
+- `30_sanity_check_roberta_baseline.ipynb`
 
-## Current Status Snapshot
+### 2. Model Family Pipelines
+- `50` – `56`
 
-- Baselines reproduced under the shared evaluation pipeline.
-- LoRA pipelines implemented for RoBERTa, Mental-RoBERTa, Flan-T5 variants, Llama3.1, Gemma2, and Longformer tracks.
-- Best observed run (latest metrics): `roberta_large_59_continue_from_57c_final_e4_lr4e6_plus20e_plus50e_r2` with `AccV = 0.830411` and `AccV-2 = 0.960717`.
-- Authors' best baseline from paper setup is approximately `AccV = 0.377345`.
-- Absolute gain (AccV): `+0.453066` (about `+120.1%` relative).
-- RoBERTa continuation chain used for transfer learning:
-  - `57c_final_full_rank64_noval_canonical` -> `59_continue_from_57c_final_e4_lr4e6` -> `...plus20e` -> `...plus20e_plus50e_r2`
+### 3. RoBERTa Optimization (Core Work)
+- `57`, `57b`, `57c`, `57d`
+- `59` (continuation training)
 
-## Reporting Assets
+### 4. Final Comparison
+- `60_multi_model_comparison.ipynb`
 
-- Final multi-model charts/tables are produced in notebook `60`.
-- Proposal-aligned progress report:
+---
+
+## Notable Experiment Chain
+
+Best-performing pipeline:
+
+```
+57c_final_full_rank64_noval_canonical
+→ 59_continue_from_57c_final_e4_lr4e6
+→ +20 epochs
+→ +50 epochs (final)
+```
+
+This progression shows:
+- initial LoRA gains (~0.59 AccV)
+- large improvements from continuation training (~0.83 AccV)
+
+---
+
+## Insights
+
+- Encoder models outperform generative models for masked prediction tasks
+- LoRA consistently improves performance, but gains vary by architecture
+- Continuation training is the largest driver of improvement
+- Models capture general emotional tone well, but struggle with fine-grained distinctions
+  - e.g., afraid vs scared, alone vs lonely
+
+---
+
+## Reporting
+
+- Final tables and plots:
+  - `notebooks/60_multi_model_comparison.ipynb`
+- Report:
   - `docs/proposal/SMA_Project_Progress_Report.docx`
-- Excel export of notebook 60 tables:
+- Exported tables:
   - `docs/proposal/notebook60_tables.xlsx`
+
+---
 
 ## Notes
 
-- This repo is notebook-driven; use notebook cell config blocks for GPU/model/cache paths.
-- Keep evaluation apples-to-apples by using the same cleaning and metric scripts across all runs.
+- Notebook-driven workflow (configure paths in cells)
+- Use consistent preprocessing and evaluation for fair comparison
