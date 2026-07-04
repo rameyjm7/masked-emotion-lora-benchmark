@@ -1,8 +1,13 @@
 # Masked Emotion LoRA Benchmark
 
-Reproducible benchmark for masked-emotion prediction on the EXPRESS dataset, combining baseline reproduction with LoRA fine-tuning and continuation training across multiple model families.
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![LoRA](https://img.shields.io/badge/LoRA-Adaptation-orange)
+![Evaluation](https://img.shields.io/badge/Evaluation-Reproducible-green)
+![LLMs](https://img.shields.io/badge/Models-RoBERTa%20%7C%20T5%20%7C%20LLaMA%20%7C%20Gemma-blueviolet)
 
-This project focuses on understanding how task-specific adaptation impacts fine-grained emotion prediction, rather than relying on model scale alone.
+Reproducible LoRA adaptation and evaluation benchmark for masked-emotion reasoning on the EXPRESS dataset. The project combines baseline reproduction, task-specific fine-tuning, continuation training, centralized metrics, and cross-family model comparison.
+
+The goal is to measure how adaptation strategy, data handling, and evaluation discipline affect fine-grained model behavior, rather than treating model scale as the only lever.
 
 ---
 
@@ -18,6 +23,16 @@ This project focuses on understanding how task-specific adaptation impacts fine-
 
 Main takeaway:
 - Alignment + training strategy matter more than model size for this task.
+
+## Why This Matters
+
+This repo is packaged as an ML systems benchmark, not just a training notebook:
+
+- consistent experiment registry and run naming
+- repeatable baseline -> adaptation -> continuation -> comparison flow
+- metrics and figures exported for review outside Jupyter
+- model-family comparison across encoder and generative architectures
+- clear evidence of evaluation-driven iteration
 
 ---
 
